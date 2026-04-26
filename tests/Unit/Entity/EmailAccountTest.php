@@ -8,31 +8,31 @@ class EmailAccountTest extends TestCase
     public function testCanCreateEmailAccount(): void
     {
         $account = new EmailAccount();
-        $account->setAccountName('Support Account');
-        $account->setEmailAddress('support@example.com');
-        $account->setServerHost('imap.example.com');
-        $account->setServerPort(993);
-        $account->setEncryption('ssl');
+        $account->accountName = 'Support Account';
+        $account->emailAddress = 'support@example.com';
+        $account->serverHost = 'imap.example.com';
+        $account->serverPort = 993;
+        $account->encryption = 'ssl';
         
-        $this->assertEquals('Support Account', $account->getAccountName());
-        $this->assertEquals('support@example.com', $account->getEmailAddress());
-        $this->assertEquals('imap.example.com', $account->getServerHost());
-        $this->assertEquals(993, $account->getServerPort());
-        $this->assertEquals('ssl', $account->getEncryption());
+        $this->assertEquals('Support Account', $account->accountName);
+        $this->assertEquals('support@example.com', $account->emailAddress);
+        $this->assertEquals('imap.example.com', $account->serverHost);
+        $this->assertEquals(993, $account->serverPort);
+        $this->assertEquals('ssl', $account->encryption);
     }
     
     public function testToArray(): void
     {
         $account = new EmailAccount();
         $account->id = 1;
-        $account->setAccountName('Test Account');
-        $account->setEmailAddress('test@example.com');
-        $account->setAccountType('imap');
-        $account->setServerHost('mail.example.com');
-        $account->setServerPort(993);
-        $account->setEncryption('ssl');
-        $account->setSyncFolder('INBOX');
-        $account->setIsActive(true);
+        $account->accountName = 'Test Account';
+        $account->emailAddress = 'test@example.com';
+        $account->accountType = 'imap';
+        $account->serverHost = 'mail.example.com';
+        $account->serverPort = 993;
+        $account->encryption = 'ssl';
+        $account->syncFolder = 'INBOX';
+        $account->isActive = true;
         
         $arr = $account->toArray();
         

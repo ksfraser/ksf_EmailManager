@@ -4,22 +4,23 @@ declare(strict_types=1);
 
 namespace Ksfraser\EmailManager\Entity;
 
-use Ksfraser\Core\BaseEntity;
-
-class EmailAccount extends BaseEntity
+class EmailAccount
 {
-    private ?string $accountName = null;
-    private ?string $emailAddress = null;
-    private string $accountType = 'imap';
-    private ?string $serverHost = null;
-    private ?int $serverPort = null;
-    private string $encryption = 'ssl';
-    private ?string $username = null;
-    private ?string $password = null;
-    private string $syncFolder = 'INBOX';
-    private bool $isActive = true;
-    private ?int $debtorNo = null;
-    private ?int $contactId = null;
+    public ?int $id = null;
+    public ?string $accountName = null;
+    public ?string $emailAddress = null;
+    public string $accountType = 'imap';
+    public ?string $serverHost = null;
+    public ?int $serverPort = null;
+    public string $encryption = 'ssl';
+    public ?string $username = null;
+    public ?string $password = null;
+    public string $syncFolder = 'INBOX';
+    public bool $isActive = true;
+    public ?int $debtorNo = null;
+    public ?int $contactId = null;
+    public ?string $createdAt = null;
+    public ?string $updatedAt = null;
 
     public function setAccountName(string $name): self
     {
@@ -169,8 +170,8 @@ class EmailAccount extends BaseEntity
             'is_active' => $this->isActive,
             'debtor_no' => $this->debtorNo,
             'contact_id' => $this->contactId,
-            'created_at' => $this->createdAt?->format('Y-m-d H:i:s'),
-            'updated_at' => $this->updatedAt?->format('Y-m-d H:i:s'),
+            'created_at' => $this->createdAt,
+            'updated_at' => $this->updatedAt,
         ];
     }
 
@@ -179,7 +180,7 @@ class EmailAccount extends BaseEntity
         $account = new self();
         if (isset($data['id'])) $account->id = $data['id'];
         if (isset($data['account_name'])) $account->accountName = $data['account_name'];
-        if (isset($data['email_address'])) $account->emailEmailAddress = $data['email_address'];
+        if (isset($data['email_address'])) $account->emailAddress = $data['email_address'];
         if (isset($data['account_type'])) $account->accountType = $data['account_type'];
         if (isset($data['server_host'])) $account->serverHost = $data['server_host'];
         if (isset($data['server_port'])) $account->serverPort = $data['server_port'];
@@ -190,8 +191,8 @@ class EmailAccount extends BaseEntity
         if (isset($data['is_active'])) $account->isActive = $data['is_active'];
         if (isset($data['debtor_no'])) $account->debtorNo = $data['debtor_no'];
         if (isset($data['contact_id'])) $account->contactId = $data['contact_id'];
-        if (isset($data['created_at'])) $account->createdAt = new \DateTime($data['created_at']);
-        if (isset($data['updated_at'])) $account->updatedAt = new \DateTime($data['updated_at']);
+        if (isset($data['created_at'])) $account->createdAt = $data['created_at'];
+        if (isset($data['updated_at'])) $account->updatedAt = $data['updated_at'];
         return $account;
     }
 }

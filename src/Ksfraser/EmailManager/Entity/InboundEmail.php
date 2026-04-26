@@ -4,28 +4,30 @@ declare(strict_types=1);
 
 namespace Ksfraser\EmailManager\Entity;
 
-use Ksfraser\Core\BaseEntity;
-
-class InboundEmail extends BaseEntity
+class InboundEmail
 {
-    private ?string $messageId = null;
-    private ?string $subject = null;
-    private ?string $fromAddress = null;
-    private ?string $fromName = null;
-    private ?string $toAddress = null;
-    private ?string $ccAddresses = null;
-    private ?string $bccAddresses = null;
-    private ?string $bodyText = null;
-    private ?string $bodyHtml = null;
-    private array $attachments = [];
-    private ?string $receivedDate = null;
-    private ?string $rawHeaders = null;
-    private ?string $routingAction = null;
-    private ?int $linkedEntityId = null;
-    private ?string $linkedEntityType = null;
-    private ?int $debtorNo = null;
-    private ?int $contactId = null;
-    private ?int $accountId = null;
+    public ?int $id = null;
+    public ?string $messageId = null;
+    public ?string $subject = null;
+    public ?string $fromAddress = null;
+    public ?string $fromName = null;
+    public ?string $toAddress = null;
+    public ?string $ccAddresses = null;
+    public ?string $bccAddresses = null;
+    public ?string $bodyText = null;
+    public ?string $bodyHtml = null;
+    public array $attachments = [];
+    public ?string $receivedDate = null;
+    public ?string $rawHeaders = null;
+    public ?string $routingAction = null;
+    public ?int $linkedEntityId = null;
+    public ?string $linkedEntityType = null;
+    public ?int $debtorNo = null;
+    public ?int $contactId = null;
+    public ?int $accountId = null;
+    public ?int $isProcessed = 0;
+    public ?string $createdAt = null;
+    public ?string $updatedAt = null;
 
     public function setMessageId(string $id): self
     {
@@ -82,28 +84,6 @@ class InboundEmail extends BaseEntity
         return $this->toAddress;
     }
 
-    public function setCcAddresses(?string $cc): self
-    {
-        $this->ccAddresses = $cc;
-        return $this;
-    }
-
-    public function getCcAddresses(): ?string
-    {
-        return $this->ccAddresses;
-    }
-
-    public function setBccAddresses(?string $bcc): self
-    {
-        $this->bccAddresses = $bcc;
-        return $this;
-    }
-
-    public function getBccAddresses(): ?string
-    {
-        return $this->bccAddresses;
-    }
-
     public function setBodyText(?string $body): self
     {
         $this->bodyText = $body;
@@ -135,28 +115,6 @@ class InboundEmail extends BaseEntity
     public function getAttachments(): array
     {
         return $this->attachments;
-    }
-
-    public function setReceivedDate(\DateTime $date): self
-    {
-        $this->receivedDate = $date->format('Y-m-d H:i:s');
-        return $this;
-    }
-
-    public function getReceivedDate(): ?string
-    {
-        return $this->receivedDate;
-    }
-
-    public function setRawHeaders(?string $headers): self
-    {
-        $this->rawHeaders = $headers;
-        return $this;
-    }
-
-    public function getRawHeaders(): ?string
-    {
-        return $this->rawHeaders;
     }
 
     public function setRoutingAction(?string $action): self
@@ -214,17 +172,6 @@ class InboundEmail extends BaseEntity
         return $this->contactId;
     }
 
-    public function setAccountId(?int $accountId): self
-    {
-        $this->accountId = $accountId;
-        return $this;
-    }
-
-    public function getAccountId(): ?int
-    {
-        return $this->accountId;
-    }
-
     public function toArray(): array
     {
         return [
@@ -247,8 +194,9 @@ class InboundEmail extends BaseEntity
             'debtor_no' => $this->debtorNo,
             'contact_id' => $this->contactId,
             'account_id' => $this->accountId,
-            'created_at' => $this->createdAt?->format('Y-m-d H:i:s'),
-            'updated_at' => $this->updatedAt?->format('Y-m-d H:i:s'),
+            'is_processed' => $this->isProcessed,
+            'created_at' => $this->createdAt,
+            'updated_at' => $this->updatedAt,
         ];
     }
 
@@ -265,7 +213,7 @@ class InboundEmail extends BaseEntity
         if (isset($data['bcc_addresses'])) $email->bccAddresses = $data['bcc_addresses'];
         if (isset($data['body_text'])) $email->bodyText = $data['body_text'];
         if (isset($data['body_html'])) $email->bodyHtml = $data['body_html'];
-        if (isset($data['attachments'])) $email->attachments = json_decode($data['attachments'], true) ?? [];
+        if (isset($data['attachments'])) $email->attachments = is_array($data['attachments']) ? $data['attachments'] : json_decode($data['attachments'], true) ?? [];
         if (isset($data['received_date'])) $email->receivedDate = $data['received_date'];
         if (isset($data['raw_headers'])) $email->rawHeaders = $data['raw_headers'];
         if (isset($data['routing_action'])) $email->routingAction = $data['routing_action'];
@@ -274,8 +222,9 @@ class InboundEmail extends BaseEntity
         if (isset($data['debtor_no'])) $email->debtorNo = $data['debtor_no'];
         if (isset($data['contact_id'])) $email->contactId = $data['contact_id'];
         if (isset($data['account_id'])) $email->accountId = $data['account_id'];
-        if (isset($data['created_at'])) $email->createdAt = new \DateTime($data['created_at']);
-        if (isset($data['updated_at'])) $email->updatedAt = new \DateTime($data['updated_at']);
+        if (isset($data['is_processed'])) $email->isProcessed = $data['is_processed'];
+        if (isset($data['created_at'])) $email->createdAt = $data['created_at'];
+        if (isset($data['updated_at'])) $email->updatedAt = $data['updated_at'];
         return $email;
     }
 }

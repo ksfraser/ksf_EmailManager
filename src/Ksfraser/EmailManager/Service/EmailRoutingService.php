@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Ksfraser\EmailManager\Service;
 
 use Ksfraser\EmailManager\Entity\InboundEmail;
-use Ksfraser\Event\EventDispatcher;
 
 class EmailRoutingService
 {
@@ -23,9 +22,9 @@ class EmailRoutingService
     
     public function route(InboundEmail $email): array
     {
-        $toAddress = strtolower($email->getToAddress() ?? '');
-        $subject = strtolower($email->getSubject() ?? '');
-        $body = strtolower($email->getBodyText() ?? '');
+        $toAddress = strtolower($email->toAddress ?? '');
+        $subject = strtolower($email->subject ?? '');
+        $body = strtolower($email->bodyText ?? '');
         
         foreach ($this->routes as $route) {
             if ($route['to_address'] === $toAddress) {
@@ -71,62 +70,5 @@ class EmailRoutingService
             'action' => 'ticket',
             'reason' => 'no match',
         ];
-    }
-}
-
-class EmailAssociationService
-{
-    public function findDebtorByEmail(string $emailAddress): ?int
-    {
-        return $this->findEntityByEmail('debtors_master', 'debtor_no', $emailAddress);
-    }
-    
-    public function findContactByEmail(string $emailAddress): ?int
-    {
-        return $this->findEntityByEmail('crm_contacts', 'contact_id', $emailAddress);
-    }
-    
-    private function findEntityByEmail(string $table, string $idField, string $emailAddress): ?int
-    {
-        if (!function_exists('db_query')) {
-            return null;
-        }
-        
-        global $db;
-        
-        $emailColumn = $idField === 'debtor_no' ? 'email' : 'email';
-        
-        $sql = "SELECT {$idField} FROM " . TB_PREF . "{$table} 
-            WHERE {$emailColumn} = " . db_escape($emailAddress) . " 
-            LIMIT 1";
-        
-        $result = @db_query($sql);
-        if (!$result) {
-            return null;
-        }
-        
-        $row = @db_fetch_assoc($result);
-        if (!$row) {
-            return null;
-        }
-        
-        return (int) $row[$idField];
-    }
-    
-    public function associateWithDebtor(InboundEmail $email, int $debtorNo): void
-    {
-        $email->setDebtorNo($debtorNo);
-        
-        if (class_exists(EventDispatcher::class)) {
-            EventDispatcher::dispatch('email.associated', [
-                'email_id' => $email->id,
-                'debtor_no' => $debtorNo,
-            ]);
-        }
-    }
-    
-    public function associateWithContact(InboundEmail $email, int $contactId): void
-    {
-        $email->setContactId($contactId);
     }
 }
