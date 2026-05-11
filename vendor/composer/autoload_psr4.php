@@ -6,5 +6,10 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'PhpParser\\' => array($vendorDir . '/nikic/php-parser/lib/PhpParser'),
+    'Ksfraser\\Exceptions\\' => array($vendorDir . '/ksfraser/exceptions/src/Ksfraser/Exceptions'),
+    'Ksfraser\\EmailManager\\Tests\\' => array($baseDir . '/tests'),
     'Ksfraser\\EmailManager\\' => array($baseDir . '/src/Ksfraser/EmailManager'),
+    'Doctrine\\Instantiator\\' => array($vendorDir . '/doctrine/instantiator/src/Doctrine/Instantiator'),
+    'DeepCopy\\' => array($vendorDir . '/myclabs/deep-copy/src/DeepCopy'),
 );
