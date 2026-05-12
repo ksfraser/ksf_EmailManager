@@ -3,7 +3,7 @@
         'name' => 'ksfraser/ksf-emailmanager',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'b8845051b95c77b4c0be8ee21fa310fb18e3d627',
+        'reference' => '4c3886cb98c73248aec7774925ab37c703c60209',
         'type' => 'php-package',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -31,7 +31,7 @@
         'ksfraser/ksf-emailmanager' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'b8845051b95c77b4c0be8ee21fa310fb18e3d627',
+            'reference' => '4c3886cb98c73248aec7774925ab37c703c60209',
             'type' => 'php-package',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
