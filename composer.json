@@ -4,7 +4,7 @@
     "type": "php-package",
     "license": "GPL-3.0",
     "require": {
-        "php": ">=7.3",
+        "php": ">=7.4",
         "ksfraser/exceptions": "^1.0"
     },
     "require-dev": {
