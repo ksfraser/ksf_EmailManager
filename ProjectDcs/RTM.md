@@ -47,6 +47,13 @@ This RTM maps Business Requirements → Functional Requirements → Test Cases f
 | BR-EM-031 | Click tracking | FR-EM-004 | EM-SVC-007 |
 | BR-EM-032 | Delivery status | FR-EM-004 | EM-SENT-003, EM-SENT-004 |
 
+### BR: RBAC Integration
+| BR ID | Description | FR | Test Cases |
+|-------|-------------|-----|------------|
+| BR-EM-040 | Record-level access control | FR-EM-007 | EM-RBAC-001, EM-RBAC-002, EM-RBAC-003, EM-RBAC-004, EM-RBAC-005 |
+| BR-EM-041 | Entity projections | FR-EM-008 | EM-RBAC-006, EM-RBAC-007, EM-RBAC-008, EM-RBAC-009 |
+| BR-EM-042 | Soft delete & audit logging | FR-EM-009 | EM-RBAC-010, EM-RBAC-011, EM-RBAC-012 |
+
 ---
 
 ## 3. Functional Requirements Detail
@@ -57,6 +64,9 @@ This RTM maps Business Requirements → Functional Requirements → Test Cases f
 | FR-EM-002 | Template management | High | ✓ | EM-TPL-001-006, EM-SVC-TPL-001-006 |
 | FR-EM-003 | Campaign management | High | ✓ | EM-CAMP-001-009, EM-SVC-CAMP-001-007 |
 | FR-EM-004 | Open/click tracking | High | ✓ | EM-SENT-003-005, EM-SVC-006-007 |
+| FR-EM-007 | RBAC record-level access control | High | △ | EM-RBAC-001-005 |
+| FR-EM-008 | RBAC entity projections | High | △ | EM-RBAC-006-009 |
+| FR-EM-009 | RBAC soft delete & audit | High | △ | EM-RBAC-010-012 |
 
 ---
 
@@ -109,7 +119,8 @@ This RTM maps Business Requirements → Functional Requirements → Test Cases f
 | Service Tests | 20 | - | - | 90% |
 | Event Tests | 6 | - | - | 100% |
 | Integration Tests | 5 | - | - | 80% |
-| **Total** | **51** | - | - | **~92%** |
+| RBAC Tests | 12 | - | - | 0% |
+| **Total** | **63** | - | - | **~80%** |
 
 ---
 
@@ -123,5 +134,5 @@ This RTM maps Business Requirements → Functional Requirements → Test Cases f
 
 ---
 
-*Document Version: 1.0.0*
-*Last Updated: 2026-05-11*
+*Document Version: 1.1.0*
+*Last Updated: 2026-05-24*
