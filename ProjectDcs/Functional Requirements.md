@@ -147,6 +147,36 @@ ksf_EmailManager provides email tracking, templates, campaigns, and CRM integrat
 - Thread replies to tickets
 - Notification templates
 
+### FR-EM-007: RBAC — Record-Level Access Control
+**Requirement**: System shall enforce record-level access via ksfraser/rbac for all email entities.
+
+**Features**:
+- Register 'email_template', 'campaign', 'email_log', 'mailing_list' record types
+- JOIN every entity query against 0_rbac_record_access
+- Filter by current user's effective teams
+- Apply deny_overrides before returning results
+- Respect can_view/can_edit/can_delete/ can_export per row
+
+### FR-EM-008: RBAC — Entity Projections
+**Requirement**: System shall expose PUBLIC and FULL projections for each email entity.
+
+**Features**:
+- EmailTemplate: PUBLIC = name, category, subject, rendered body; FULL = + version history, timestamps
+- Campaign: PUBLIC = name, subject, status, aggregate stats; FULL = + template_id, segment_id, raw tracking data
+- EmailLog: PUBLIC = from_address, to_address, subject, sent_at, opens; FULL = + body, clicks, bounce_status
+- MailingList: PUBLIC = name, description, member_count; FULL = + full member list, source segment ID
+- Projection enforced at query level via ra.projection column
+
+### FR-EM-009: RBAC — Soft Delete & Audit
+**Requirement**: System shall support soft delete with RBAC-gated visibility and audit logging.
+
+**Features**:
+- Templates and campaigns use soft delete (deleted flag, deleted_by, deleted_at)
+- Email logs are append-only (no delete or update)
+- Deleted records require can_view_deleted type-level permission
+- All permission checks logged to 0_rbac_audit_log
+- Hard delete restricted to roles with can_hard_delete permission
+
 ## 4. Composer Dependencies
 
 | Package | Version | Purpose |
@@ -155,5 +185,5 @@ ksf_EmailManager provides email tracking, templates, campaigns, and CRM integrat
 
 ---
 
-*Document Version: 1.0.0*
-*Last Updated: 2026-05-11*
+*Document Version: 1.1.0*
+*Last Updated: 2026-05-24*
